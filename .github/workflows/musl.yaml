@@ -3,10 +3,11 @@ name: Linux Build Musl Static
 on:
   pull_request:
     types: [closed]
+  workflow_dispatch:
 
 jobs:
   build:
-    if: github.event.pull_request.merged
+    #if: github.event.pull_request.merged
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -51,6 +52,7 @@ jobs:
         mkdir ./output/
         export PATH=$PATH:~/go/bin/:/usr/local/musl/bin
         go run make.go -v LinuxMusl
+        go run make.go -v LinuxMusl386
 
     - name: StoreBinaries
       uses: actions/upload-artifact@v3
